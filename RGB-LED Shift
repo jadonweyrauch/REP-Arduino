@@ -1,14 +1,17 @@
-//Random LED Shift
-
+/*
+This program sets an RGB LED's color to a random value and will slowly shift to that color.
+Once it reaches it's destination, it will randomize the color again and repeat the process.
+It also outputs the current RGB values and destination values to the console for monitoring purposes.
+*/
 //Pins
 int redPin = 3;
 int greenPin = 5;
 int bluePin = 6;
  
 //Values to shift to
-int redDest = 0;
-int greenDest = 255;
-int blueDest = 0;
+int redDest = random(0, 255);
+int greenDest = random(0, 255);
+int blueDest = random(0, 255);
  
 //Starting values
 int red = 0;
