@@ -1,0 +1,78 @@
+//Random LED Shift
+
+//Pins
+int redPin = 3;
+int greenPin = 5;
+int bluePin = 6;
+ 
+//Values to shift to
+int redDest = 0;
+int greenDest = 255;
+int blueDest = 0;
+ 
+//Starting values
+int red = 0;
+int blue = 0;
+int green = 0;
+ 
+void setup() {
+pinMode(red, OUTPUT);
+pinMode(green, OUTPUT);
+pinMode(blue, OUTPUT);
+Serial.begin(9600);
+}
+ 
+void loop() {
+    //Repeat until values have reached destination
+   if (red != redDest) {
+       if (red < redDest) {
+           red++;
+       }
+       else {
+           red--;
+       }
+   }
+   if (green != greenDest) {
+       if (green < greenDest) {
+           green++;
+       }
+       else {
+           green--;
+       }
+   }
+   if (blue != blueDest) {
+       if (blue < blueDest) {
+           blue++;
+       }
+       else {
+           blue--;
+       }
+   }
+   //Checks if destination is reached
+   if (red == redDest && green == greenDest && blue == blueDest) {
+       //Randomizes the next destination
+       redDest = random(0, 255);
+       greenDest = random(0, 255);
+       blueDest = random(0, 255);
+   }
+   setcolor (red, green, blue);
+   delay(10); //Shift speed. Bigger = Slower
+   //Output current and destination values to console
+   Serial.print(red);
+   Serial.print("  ");
+   Serial.print(green);
+   Serial.print("  ");
+   Serial.print(blue);
+   Serial.print("  ");
+   Serial.print(redDest);
+   Serial.print("  ");
+   Serial.print(greenDest);
+   Serial.print("  ");
+   Serial.println(blueDest);
+}
+//setcolor function
+void setcolor (int redvalue, int greenvalue, int bluevalue) {
+  analogWrite (redPin, redvalue);
+  analogWrite (greenPin, greenvalue);
+  analogWrite (bluePin, bluevalue);
+}
