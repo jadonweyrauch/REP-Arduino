@@ -1,0 +1,118 @@
+/*
+This program sets an RGB LED's color to a random value from a preset list and will slowly shift to that color.
+Once it reaches it's destination, it will randomize the color again and repeat the process.
+It also outputs the current RGB values and destination values to the console for monitoring purposes.
+*/
+//Pins
+int redPin = 3;
+int greenPin = 5;
+int bluePin = 6;
+ 
+//Values to shift to
+int redDest = random(0, 255);
+int greenDest = random(0, 255);
+int blueDest = random(0, 255);
+ 
+//Starting values
+int red = 0;
+int blue = 0;
+int green = 0;
+
+//Random color picker
+int colorRand = random(1,6);
+
+void setup() {
+pinMode(red, OUTPUT);
+pinMode(green, OUTPUT);
+pinMode(blue, OUTPUT);
+Serial.begin(9600);
+}
+ 
+void loop() {
+    //Repeat until values have reached destination
+   if (red != redDest) {
+       if (red < redDest) {
+           red++;
+       }
+       else {
+           red--;
+       }
+   }
+   if (green != greenDest) {
+       if (green < greenDest) {
+           green++;
+       }
+       else {
+           green--;
+       }
+   }
+   if (blue != blueDest) {
+       if (blue < blueDest) {
+           blue++;
+       }
+       else {
+           blue--;
+       }
+   }
+   //Checks if destination is reached
+   if (red == redDest && green == greenDest && blue == blueDest) {
+       //Randomizes the next destination
+       colorRand = random(1,6);
+       //Red
+       if (colorRand == 1) {
+           redDest = 255;
+           greenDest = 0;
+           blueDest = 0;
+       }
+       //Orange
+       if (colorRand == 2) {
+           redDest = 255;
+           greenDest = 165;
+           blueDest = 0;
+       }
+       //Yellow
+       if (colorRand == 3) {
+           redDest = 255;
+           greenDest = 255;
+           blueDest = 0;
+       }
+       //Green
+       if (colorRand == 4) {
+           redDest = 0;
+           greenDest = 255;
+           blueDest = 0;
+       }
+       //Blue
+       if (colorRand == 5) {
+           redDest = 0;
+           greenDest = 0;
+           blueDest = 255;
+       }
+       //Purple
+       if (colorRand == 6) {
+           redDest = 230;
+           greenDest = 230;
+           blueDest = 250;
+       }
+   }
+   setcolor (red, green, blue);
+   delay(5); //Shift speed. Bigger = Slower
+   //Output current and destination values to console
+   Serial.print(red);
+   Serial.print("  ");
+   Serial.print(green);
+   Serial.print("  ");
+   Serial.print(blue);
+   Serial.print("  ");
+   Serial.print(redDest);
+   Serial.print("  ");
+   Serial.print(greenDest);
+   Serial.print("  ");
+   Serial.println(blueDest);
+}
+//setcolor function
+void setcolor (int redvalue, int greenvalue, int bluevalue) {
+  analogWrite (redPin, redvalue);
+  analogWrite (greenPin, greenvalue);
+  analogWrite (bluePin, bluevalue);
+}
