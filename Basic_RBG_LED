@@ -1,0 +1,30 @@
+int red = 3;
+int green = 5;
+int blue = 6;
+int sometime = 1500;
+void setup() {
+pinMode(red, OUTPUT);
+pinMode(green, OUTPUT);
+pinMode(blue, OUTPUT);
+}
+void loop() {
+  setcolor (233, 1, 1); //Red
+  delay(sometime);
+  setcolor (255, 66, 1); //Orange
+  delay(sometime);
+  setcolor (226, 233, 1); //Yellow
+  delay(sometime);
+  setcolor (1, 233, 1); //Green
+  delay(sometime);
+  setcolor (57, 124, 255); //Blue
+  delay(sometime);
+  setcolor (110, 2, 255); //Indigo
+  delay(sometime);
+  setcolor (173, 2, 255); //Violet
+  delay(sometime);
+}
+void setcolor (int redvalue, int greenvalue, int bluevalue) {
+  analogWrite (red, redvalue);
+  analogWrite (green, greenvalue);
+  analogWrite (blue, bluevalue);
+}
