@@ -1,0 +1,48 @@
+int redPin = 3;
+int greenPin = 5;
+int bluePin = 6;
+int leftPin = 8;
+int rightPin = 9;
+int currentColor = 0;
+
+void setup() {
+    pinMode(redPin, OUTPUT);
+    pinMode(greenPin, OUTPUT);
+    pinMode(bluePin, OUTPUT);
+    pinMode(leftPin, INPUT_PULLUP);
+    pinMode(rightPin, INPUT_PULLUP);
+    Serial.begin(115200);
+}
+
+void loop() {
+    if (digitalRead(leftPin) == LOW) {
+      Serial.println("Left");
+      currentColor--;
+      delay(200);
+    }
+    if (digitalRead(rightPin) == LOW) {
+      Serial.println("Right");
+      currentColor++;
+      delay(200);
+    }
+    if (currentColor == 1) {
+      setcolor(255, 0, 0);
+    }
+    if (currentColor == 2) {
+      setcolor(0, 255, 0);
+    }
+    if (currentColor == 3) {
+      setcolor(0, 0, 255);
+    }
+    if (currentColor > 3) {
+      currentColor = 3;
+    }
+    if (currentColor < 1) {
+      currentColor = 1;
+    }
+}
+void setcolor (int redvalue, int greenvalue, int bluevalue) {
+  analogWrite (redPin, redvalue);
+  analogWrite (greenPin, greenvalue);
+  analogWrite (bluePin, bluevalue);
+}
