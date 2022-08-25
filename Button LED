@@ -1,0 +1,33 @@
+int ledPin =5; // red Color to pin 5 on the arduino
+int buttonApin =9; //one button to pin 9 on the arduiono
+int buttonBpin =8 // another button to pin 8 on the arduino
+bye led =0;
+
+//the setup function defines the ledPin as being an OUTPOUT as normal but now we have the two inputs 
+
+void setup()
+
+{
+
+  pinMode(ledPin, OUTPOUT)
+  pinMode(buttonApin, INPUT_PULLUP);
+  pinMode(buttonBpin, INPUT_PULLUP);
+
+}
+
+//technical stuff that snure put that im not typing out
+
+void loop()
+{
+
+  digitalWrite(ledPin, HIGH);
+
+}
+
+if (digitalRead(buttonBpin) == LOW)
+
+{
+
+digitalWrite(ledPin, LOW);
+}
+}
