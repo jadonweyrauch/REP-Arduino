@@ -1,0 +1,55 @@
+int redPin = 3;
+int greenPin = 5;
+int bluePin = 6;
+int redButton = 8;
+int greenButton = 9;
+int blueButton = 10;
+int red = 0;
+int green = 0;
+int blue = 0;
+
+void setup() {
+    pinMode(redPin, OUTPUT);
+    pinMode(greenPin, OUTPUT);
+    pinMode(bluePin, OUTPUT);
+    pinMode(redButton, INPUT_PULLUP);
+    pinMode(greenButton, INPUT_PULLUP);
+    pinMode(blueButton, INPUT_PULLUP);
+    Serial.begin(115200);
+}
+
+void loop() {
+    if (digitalRead(redButton) == LOW) {
+      red += 10;
+      delay(100);
+    }
+    if (digitalRead(greenButton) == LOW) {
+      green += 10;
+      delay(100);
+    }
+    if (digitalRead(blueButton) == LOW) {
+      blue += 10;
+      delay(100);
+    }
+    if (red > 255) {
+        red = 0;
+    }
+    if (green > 255) {
+        green = 0;
+    }
+    if (blue > 255) {
+        blue = 0;
+    }
+    setcolor(red, green, blue);
+    Serial.print(red);
+    Serial.print(" ");
+    Serial.print(green);
+    Serial.print(" ");
+    Serial.println(blue);
+    
+}
+void setcolor (int redvalue, int greenvalue, int bluevalue) {
+  analogWrite (redPin, redvalue);
+  analogWrite (greenPin, greenvalue);
+  analogWrite (bluePin, bluevalue);
+}
