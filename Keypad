@@ -1,0 +1,65 @@
+int r1 = 
+int r2 = 
+int r3 = 
+int r4 = 
+int c1 = 
+int c2 = 
+int c3 = 
+int c4 = 
+
+void setup() {
+    pinMode(r1, INPUT_PULLUP);
+    pinMode(r2, INPUT_PULLUP);
+    pinMode(r3, INPUT_PULLUP);
+    pinMode(r4, INPUT_PULLUP);
+    pinMode(c1, INPUT_PULLUP);
+    pinMode(c2, INPUT_PULLUP);
+    pinMode(c3, INPUT_PULLUP);
+    pinMode(c4, INPUT_PULLUP);
+    Serial.begin(115200)
+}
+
+void loop() {
+    for (digitalRead(r1) == LOW) {
+        if (digitalRead(c1) == LOW) {
+            Serial.print(1);
+        }
+        if (digitalRead(c2) == LOW) {
+            Serial.print(2);
+        }
+        if (digitalRead(c3) == LOW) {
+            Serial.print(3);
+        }
+        if (digitalRead(c4) == LOW) {
+            Serial.print(A);
+        }
+    }
+    for (digitalRead(r2) == LOW) {
+        if (digitalRead(c1) == LOW) {
+            Serial.print(4);
+        }
+        if (digitalRead(c2) == LOW) {
+            Serial.print(5);
+        }
+        if (digitalRead(c3) == LOW) {
+            Serial.print(6);
+        }
+        if (digitalRead(c4) == LOW) {
+            Serial.print(B);
+        }
+    }
+    for (digitalRead(r3) == LOW) {
+        if (digitalRead(c1) == LOW) {
+            Serial.print(1);
+        }
+        if (digitalRead(c2) == LOW) {
+            Serial.print(2);
+        }
+        if (digitalRead(c3) == LOW) {
+            Serial.print(3);
+        }
+        if (digitalRead(c4) == LOW) {
+            Serial.print(4);
+        }
+    }
+}
