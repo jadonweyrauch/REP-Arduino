@@ -1,79 +1,28 @@
-int r1 = 0;
-int r2 = 1;
-int r3 = 2;
-int r4 = 3;
-int c1 = 4;
-int c2 = 5;
-int c3 = 6;
-int c4 = 7;
+#include <Keypad.h>
 
-void setup() {
-    pinMode(r1, INPUT_PULLUP);
-    pinMode(r2, INPUT_PULLUP);
-    pinMode(r3, INPUT_PULLUP);
-    pinMode(r4, INPUT_PULLUP);
-    pinMode(c1, INPUT_PULLUP);
-    pinMode(c2, INPUT_PULLUP);
-    pinMode(c3, INPUT_PULLUP);
-    pinMode(c4, INPUT_PULLUP);
-    Serial.begin(115200);
+const int ROW_NUM = 4; //four rows
+const int COLUMN_NUM = 4; //four columns
+
+char keys[ROW_NUM][COLUMN_NUM] = {
+  {'1','2','3', 'A'},
+  {'4','5','6', 'B'},
+  {'7','8','9', 'C'},
+  {'*','0','#', 'D'}
+};
+
+byte pin_rows[ROW_NUM] = {0, 8, 2, 3}; //connect to the row pinouts of the keypad
+byte pin_column[COLUMN_NUM] = {4, 5, 6, 7}; //connect to the column pinouts of the keypad
+
+Keypad keypad = Keypad(makeKeymap(keys), pin_rows, pin_column, ROW_NUM, COLUMN_NUM );
+
+void setup(){
+  Serial.begin(115200);
 }
 
-void loop() {
-    if (digitalRead(r1) == LOW) {
-        if (digitalRead(c1) == LOW) {
-            Serial.println(1);
-        }
-        if (digitalRead(c2) == LOW) {
-            Serial.println(2);
-        }
-        if (digitalRead(c3) == LOW) {
-            Serial.println(3);
-        }
-        if (digitalRead(c4) == LOW) {
-            Serial.println("A");
-        }
-    }
-    if (digitalRead(r2) == LOW) {
-        if (digitalRead(c1) == LOW) {
-            Serial.println(4);
-        }
-        if (digitalRead(c2) == LOW) {
-            Serial.println(5);
-        }
-        if (digitalRead(c3) == LOW) {
-            Serial.println(6);
-        }
-        if (digitalRead(c4) == LOW) {
-            Serial.println("B");
-        }
-    }
-    if (digitalRead(r3) == LOW) {
-        if (digitalRead(c1) == LOW) {
-            Serial.println(7);
-        }
-        if (digitalRead(c2) == LOW) {
-            Serial.println(8);
-        }
-        if (digitalRead(c3) == LOW) {
-            Serial.println(9);
-        }
-        if (digitalRead(c4) == LOW) {
-            Serial.println("C");
-        }
-    }
-    if (digitalRead(r4) == LOW) {
-        if (digitalRead(c1) == LOW) {
-            Serial.println("*");
-        }
-        if (digitalRead(c2) == LOW) {
-            Serial.println(0);
-        }
-        if (digitalRead(c3) == LOW) {
-            Serial.println("#");
-        }
-        if (digitalRead(c4) == LOW) {
-            Serial.println("D");
-        }
-    }
+void loop(){
+  char key = keypad.getKey();
+
+  if (key){
+    Serial.println(key);
+  }
 }
