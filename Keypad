@@ -1,5 +1,8 @@
 #include <Keypad.h>
 
+String num1 = "";
+String num2 = "";
+
 const int ROW_NUM = 4; //four rows
 const int COLUMN_NUM = 4; //four columns
 
@@ -22,7 +25,11 @@ void setup(){
 void loop(){
   char key = keypad.getKey();
 
-  if (key){
-    Serial.println(key);
+  if (isdigit(key)){
+    num1.concat(key);
+    Serial.println(num1);
+  }
+  if (ke) {
+    Serial.println("A");
   }
 }
