@@ -1,11 +1,11 @@
-int r1 = 
-int r2 = 
-int r3 = 
-int r4 = 
-int c1 = 
-int c2 = 
-int c3 = 
-int c4 = 
+int r1 = 0;
+int r2 = 1;
+int r3 = 2;
+int r4 = 3;
+int c1 = 4;
+int c2 = 5;
+int c3 = 6;
+int c4 = 7;
 
 void setup() {
     pinMode(r1, INPUT_PULLUP);
@@ -16,50 +16,64 @@ void setup() {
     pinMode(c2, INPUT_PULLUP);
     pinMode(c3, INPUT_PULLUP);
     pinMode(c4, INPUT_PULLUP);
-    Serial.begin(115200)
+    Serial.begin(115200);
 }
 
 void loop() {
-    for (digitalRead(r1) == LOW) {
+    if (digitalRead(r1) == LOW) {
         if (digitalRead(c1) == LOW) {
-            Serial.print(1);
+            Serial.println(1);
         }
         if (digitalRead(c2) == LOW) {
-            Serial.print(2);
+            Serial.println(2);
         }
         if (digitalRead(c3) == LOW) {
-            Serial.print(3);
+            Serial.println(3);
         }
         if (digitalRead(c4) == LOW) {
-            Serial.print(A);
+            Serial.println("A");
         }
     }
-    for (digitalRead(r2) == LOW) {
+    if (digitalRead(r2) == LOW) {
         if (digitalRead(c1) == LOW) {
-            Serial.print(4);
+            Serial.println(4);
         }
         if (digitalRead(c2) == LOW) {
-            Serial.print(5);
+            Serial.println(5);
         }
         if (digitalRead(c3) == LOW) {
-            Serial.print(6);
+            Serial.println(6);
         }
         if (digitalRead(c4) == LOW) {
-            Serial.print(B);
+            Serial.println("B");
         }
     }
-    for (digitalRead(r3) == LOW) {
+    if (digitalRead(r3) == LOW) {
         if (digitalRead(c1) == LOW) {
-            Serial.print(1);
+            Serial.println(7);
         }
         if (digitalRead(c2) == LOW) {
-            Serial.print(2);
+            Serial.println(8);
         }
         if (digitalRead(c3) == LOW) {
-            Serial.print(3);
+            Serial.println(9);
         }
         if (digitalRead(c4) == LOW) {
-            Serial.print(4);
+            Serial.println("C");
+        }
+    }
+    if (digitalRead(r4) == LOW) {
+        if (digitalRead(c1) == LOW) {
+            Serial.println("*");
+        }
+        if (digitalRead(c2) == LOW) {
+            Serial.println(0);
+        }
+        if (digitalRead(c3) == LOW) {
+            Serial.println("#");
+        }
+        if (digitalRead(c4) == LOW) {
+            Serial.println("D");
         }
     }
 }
