@@ -1,0 +1,120 @@
+
+
+#include <Keypad.h>
+
+String num1 = "";
+String num2 = "";
+int sign = 0;
+int result = 0;
+
+const int ROW_NUM = 4; //four rows
+const int COLUMN_NUM = 4; //four columns
+
+char keys[ROW_NUM][COLUMN_NUM] = {
+  {'1','2','3', 'A'},
+  {'4','5','6', 'B'},
+  {'7','8','9', 'C'},
+  {'*','0','#', 'D'}
+};
+
+byte pin_rows[ROW_NUM] = {0, 8, 2, 3}; //connect to the row pinouts of the keypad
+byte pin_column[COLUMN_NUM] = {4, 5, 6, 7}; //connect to the column pinouts of the keypad
+
+Keypad keypad = Keypad(makeKeymap(keys), pin_rows, pin_column, ROW_NUM, COLUMN_NUM );
+
+void setup(){
+  Serial.begin(115200);
+}
+
+void loop(){
+  char key = keypad.getKey();
+
+  if (isdigit(key) && sign == 0){
+    num1.concat(key);
+    Serial.println(" ");
+    Serial.println(num1);
+  }
+  if (isdigit(key) && sign != 0){
+    num2.concat(key);
+    Serial.println(" ");
+    Serial.print(num1);
+    if (sign == 1){
+      Serial.print(" + ");
+    }
+    if (sign == 2){
+      Serial.print(" - ");
+    }
+    if (sign == 3){
+      Serial.print(" * ");
+    }
+    if (sign == 4){
+      Serial.print(" / ");
+    }
+    Serial.println(num2);
+  }
+  if (key == 'A' && num1 != " ") {
+    Serial.println(" ");
+    Serial.print(num1);
+    Serial.print(" + ");
+    sign = 1;
+  }
+  if (key == 'B' && num1 != " ") {
+    Serial.println(" ");
+    Serial.print(num1);
+    Serial.print(" - ");
+    sign = 2;
+  }
+  if (key == 'C' && num1 != " ") {
+    Serial.println(" ");
+    Serial.print(num1);
+    Serial.print(" * ");
+    sign = 3;
+  }
+  if (key == 'D' && num1 != " ") {
+    Serial.println(" ");
+    Serial.print(num1);
+    Serial.print(" / ");
+    sign = 4;
+  }
+  if (key == '#' && num1 != " " && num2 != " " && sign != 0) {
+    if (sign == 1) {
+      result = num1.toInt() + num2.toInt();
+      Serial.println(" ");
+      Serial.println(result);
+      num1 = String(result);
+      num2 = " ";
+      sign = 0;
+    }
+    if (sign == 2) {
+      result = num1.toInt() - num2.toInt();
+      Serial.println(" ");
+      Serial.println(result);
+      num1 = String(result);
+      num2 = " ";
+      sign = 0;
+    }
+    if (sign == 3) {
+      result = num1.toInt() * num2.toInt();
+      Serial.println(" ");
+      Serial.println(result);
+      num1 = String(result);
+      num2 = " ";
+      sign = 0;
+    }
+    if (sign == 4) {
+      result = num1.toInt() / num2.toInt();
+      Serial.println(" ");
+      Serial.println(result);
+      num1 = String(result);
+      num2 = " ";
+      sign = 0;
+    }
+  }
+  if (key == '*') {
+    num1 = " ";
+    num2 = " ";
+    sign = 0;
+    result = 0;
+    Serial.println("Cleared");
+  }
+}
