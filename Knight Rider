@@ -1,24 +1,25 @@
-int delayTime = 500;
+int delayTime = 200;
 
 void setup() {
-    for(int r-2; r<=7; r++){
+    for(int r=2; r<=7; r++){
         pinMode(r, OUTPUT);
     }
     Serial.begin(115200);
 }
 
 void loop() {
-    for int i=2; i<=7; i++ {
-        digitalWrite(i, HIGH);
-        delay(delayTime);
-        digitalWrite(i, LOW);
-        delay(delayTime);
-    }
-
     for(int i=2; i<=7; i++) {
         digitalWrite(i, HIGH);
         delay(delayTime);
         digitalWrite(i, LOW);
         delay(delayTime);
     }
+    
+    for(int j=6; j<=7; j--) {
+        digitalWrite(j, HIGH);
+        delay(delayTime);
+        digitalWrite(j, LOW);
+        delay(delayTime);
+    }
+    
 }
