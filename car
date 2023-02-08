@@ -1,0 +1,230 @@
+//#include <Servo.h>
+
+//Servo SonicServo;
+
+//#define Trigger 2
+//#define Echo 3
+
+  int objectLeft;
+  int objectRight;
+
+//Lines from jws
+int ledPin = 13;
+    //int var = 0;
+    #define inb1 8
+    #define inb2 9
+    #define inb3 10
+    #define inb4 11
+    #define enA 6 //use pwm pin
+    #define enB 7  //use pwm pin
+    #define enC 12
+    #define enD 13
+    #define in1 2
+    #define in2 3
+    #define in3 4
+    #define in4 5
+  int motorSpeedA = 0;
+  int motorSpeedB = 0;
+
+// ************************Begin Setup************************
+void setup(){
+  Serial.begin(9600);
+
+///Motor controls****************
+   pinMode(ledPin,OUTPUT);//  
+   pinMode(enA, OUTPUT);
+   pinMode(enB, OUTPUT);
+   pinMode(enC, OUTPUT);
+   pinMode(enD, OUTPUT);
+   pinMode(in1, OUTPUT);
+   pinMode(in2, OUTPUT);
+   pinMode(in3, OUTPUT);
+   pinMode(in4, OUTPUT);
+   pinMode(inb1, OUTPUT);
+   pinMode(inb2, OUTPUT);
+   pinMode(inb3, OUTPUT);
+   pinMode(inb4, OUTPUT);
+
+//  SonicServo.attach(11);  //use pwm pin
+
+}
+//***************************************End Setup
+
+void loop(){
+
+ /*
+  int objectAhead = doPing();
+  Serial.print(" first distance ahead = ");
+  Serial.println( objectAhead );
+    if (objectAhead <= 6 ){
+      stopMotors();
+      scanLeft();
+    } /*
+    if (objectLeft > objectRight){
+      goLeft();
+    }
+    else{
+      goRight();
+    } */
+
+   
+ Serial.println("   Start Loop");
+ goForward();
+ delay(1000);
+ goLeft();/*
+ delay(1000);
+ goLeft();
+ delay(1000);
+ goLeft();
+ delay(1000);
+ goLeft();
+ delay(1000);
+ */
+/*
+  SonicServo.write(90); //Look straight ahead
+   int objectAhead = doPing();
+    if (objectAhead <= 6 ){
+      stopMotors();
+      scanLeftRight();
+    }
+    if (objectLeft > objectRight){
+      goLeft();
+    }
+    else{
+      goRight();
+    }
+   */
+}//end of Void loop?****************************
+
+/*
+int doPing() {  // code for 3 pin ultrasonic sensor
+  pinMode(Echo, INPUT);
+  pinMode(Trigger, OUTPUT);
+  int distance = 0;
+  int average = 0;
+  for (int i=0; i < 4; i++) {
+    digitalWrite(Trigger, LOW);
+    delayMicroseconds(2);
+    digitalWrite(Trigger, HIGH);
+    delayMicroseconds(1000);
+    digitalWrite(Trigger, LOW);
+    distance = pulseIn(Echo, HIGH);
+    distance = distance / 74 / 2;
+    average += distance;
+    delay(10);
+  }
+    return ( average / 4);
+      }// END DO PING
+*/
+  /*    
+int void scanLeft(){
+    int objectLeft = 0;
+    objectLeft = doPing();
+    Serial.print(objectLeft);
+    Serial.println(" object to the Left");  
+  return(objectLeft);
+ }    
+int void scanRight(){
+    int objectRight = 0;
+    objectRight = doPing();
+    Serial.print(objectRight);
+    Serial.println(" object to the Right");  
+  return(objectRight);
+ }    
+ */
+void goForward() {
+   Serial.println("   Forward");
+    digitalWrite(in1, LOW);
+    digitalWrite(in2,HIGH);  
+    digitalWrite(inb1, LOW);
+    digitalWrite(inb2,HIGH);          
+    digitalWrite(in3, LOW);
+    digitalWrite(in4, HIGH);
+    digitalWrite(inb3, LOW);
+    digitalWrite(inb4, HIGH);  
+      motorSpeedA = 100;
+      motorSpeedB = 100;
+       Serial.print( motorSpeedA);
+       Serial.println("  motorSpeed A");
+   for (int i=0; i < 5; i++){    
+      analogWrite(enA, motorSpeedA); // Send PWM signal to motor A
+      analogWrite(enB, motorSpeedB); // Send PWM signal to motor B
+      analogWrite(enC, motorSpeedA); // Send PWM signal to motor A
+      analogWrite(enD, motorSpeedB); // Send PWM signal to motor B
+    }
+ 
+  }//end goForward
+
+void goReverse() {
+     
+        //lines fromjws
+     //Serial.println("   Reverse");
+    digitalWrite(in1, HIGH);
+    digitalWrite(in2, LOW);
+         // Set Motor B forward
+    digitalWrite(in3, HIGH);
+    digitalWrite(in4, LOW);
+   
+      motorSpeedA = 100;
+      motorSpeedB = 100;
+      analogWrite(enA, motorSpeedA); // Send PWM signal to motor A
+      analogWrite(enB, motorSpeedB); // Send PWM signal to motor B
+       Serial.print (motorSpeedA);
+       Serial.println("  motorSpeed A");
+
+    }//End goReverse
+   
+void goRight() {
+       //from jws
+    digitalWrite(in1, LOW);
+    digitalWrite(in2, HIGH);
+         // Set Motor B forward
+    digitalWrite(in3, HIGH);
+    digitalWrite(in4, LOW);  
+      motorSpeedA = 10;
+      motorSpeedB = 60;
+      for (int i=0; i < 3; i++){
+      analogWrite(enA, motorSpeedA); // Send PWM signal to motor A
+      analogWrite(enB, motorSpeedB); // Send PWM signal to motor B
+      }
+    }//END GORIGHT
+
+void goLeft() {
+//from jws
+    digitalWrite(in1, HIGH);
+    digitalWrite(in2, LOW);
+         // Set Motor B forward
+    digitalWrite(in3, LOW);
+    digitalWrite(in4, HIGH);
+    //Pause ************************** //pause trying this first to see if it evens out motors
+      motorSpeedA = 75;
+      motorSpeedB = 15;
+      for (int i=0; i < 3; i++){
+      analogWrite(enA, motorSpeedA); // Send PWM signal to motor A
+      analogWrite(enB, motorSpeedB); // Send PWM signal to motor B
+      }
+    }//END go left
+
+void stopMotors() {
+   Serial.println("  Stop");    
+   motorSpeedA = 0;  //pause
+   motorSpeedB = 0;
+   analogWrite(enA, motorSpeedA); // Send PWM signal to motor A
+   analogWrite(enB, motorSpeedB); // Send PWM signal to motor B
+   delay(1000);
+  }//end all Stop
+
+/*
+ void ultrasonic() {
+  long duration, distance;
+  int TrigPin = 2;
+  int echoPin = 3;
+  digitalWrite(TrigPin,HIGH);
+  delayMicroseconds(1000);
+  digitalWrite(TrigPin, LOW);
+  duration=pulseIn(echoPin, HIGH);
+  distance =(duration/2)/29.1;
+  Serial.print(distance);
+  Serial.println("CM");
+  delay(10);
+}//END DISTANCE  */
